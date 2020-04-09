@@ -1,24 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
 
 function App() {
+  const [text, setText] = useState('');
+
+  function handleEdit(){
+    let item = document.getElementById('editable');
+    
+    setText(item.innerHTML);
+
+    let editableItem = document.createElement('input');
+    editableItem.value = text;
+
+    item.parentNode.replaceChild(editableItem, item);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <p id="editable" onClick={handleEdit} >Testing 123</p>
     </div>
   );
 }
