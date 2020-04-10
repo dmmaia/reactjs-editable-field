@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 
 function App() {
-  const [text, setText] = useState('');
+  const [text, setText] = useState('test 123');
 
   function handleSaveEdit(){
     let item = document.getElementById('editable');
@@ -23,19 +23,25 @@ function App() {
     setText(item.innerHTML);
 
     let editableItem = document.createElement('input');
-    editableItem.value = item.innerText;
+    editableItem.value = text;
     editableItem.id='editable';
     editableItem.classList.add('edit');
-    editableItem.onchange = {handleSaveEdit}
+    //editableItem.onchange = (event=>setText(event.target.value));
+
+    let newItem = document.createElement('p');
+    newItem.innerText = text;
+    newItem.id='editable';
 
     if(!(item.classList.contains('edit'))){
       item.parentNode.replaceChild(editableItem, item);
-    } 
+    }else{
+      item.parentNode.replaceChild(newItem, item);
+    }
   }
 
   return (
     <div className="App">
-      <p id="editable" onClick={handleEdit} >Testing 123</p>
+      <span onClick={handleEdit} ><p id="editable" >{ text }</p></span>
     </div>
   );
 }
