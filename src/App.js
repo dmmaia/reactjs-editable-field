@@ -4,15 +4,33 @@ import './App.css';
 function App() {
   const [text, setText] = useState('');
 
+  function handleSaveEdit(){
+    let item = document.getElementById('editable');
+
+    let newItem = document.createElement('p');
+    newItem.innerText = text;
+    newItem.id='editable';
+    newItem.onclick={handleEdit};
+
+    if(item.classList.contains('edit')){
+      item.parentNode.replaceChild(newItem, item);
+    } 
+  }
+
   function handleEdit(){
     let item = document.getElementById('editable');
     
     setText(item.innerHTML);
 
     let editableItem = document.createElement('input');
-    editableItem.value = text;
+    editableItem.value = item.innerText;
+    editableItem.id='editable';
+    editableItem.classList.add('edit');
+    editableItem.onchange = {handleSaveEdit}
 
-    item.parentNode.replaceChild(editableItem, item);
+    if(!(item.classList.contains('edit'))){
+      item.parentNode.replaceChild(editableItem, item);
+    } 
   }
 
   return (
